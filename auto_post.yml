@@ -1,0 +1,28 @@
+name: 24/7 Ultra Max YouTube Bot
+
+on:
+  schedule:
+    - cron: '0 15 * * *'  # This wakes the bot up automatically at 3PM every day
+  workflow_dispatch:      # This adds a "Run Now" button for you
+
+jobs:
+  build-and-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Requirements
+        run: pip install google-api-python-client google-auth-oauthlib moviepy google-generativeai
+
+      - name: Run The Bot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python main.py  # This triggers your bot to create & post
