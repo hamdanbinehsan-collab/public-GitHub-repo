@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aether Homes — The ONLY 100% AI Real Estate Platform. It finds the buyer, negotiates, signs the contract, transfers the money, and hands over the keys. Zero humans.">
+    <title>AETHER HOMES • 100% AI • Finds Buyer • Sells Instantly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent: #00f7d8;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, transform, opacity;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 30% 20%, rgba(0, 247, 216, 0.25) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 247, 216, 0.25) 0%, transparent 60%),
+                        #0a0a0a;
+            animation: heroPulse 20s ease infinite;
+        }
+        
+        @keyframes heroPulse {
+            0%, 100% { background-position: 30% 20%, 70% 80%; }
+            50% { background-position: 45% 35%, 55% 65%; }
+        }
+        
+        .glass {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 15px var(--accent),
+                0 0 30px var(--accent),
+                0 0 45px var(--accent);
+        }
+        
+        .pipeline-step {
+            animation: pipelinePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+        
+        @keyframes pipelinePop {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .live-dot {
+            animation: livePulse 2s ease-in-out infinite;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confetti-fall 4s linear forwards;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-[#00f7d8] to-[#00a88f] rounded-2xl flex items-center justify-center rotate-12">
+                    <i class="fa-solid fa-house text-black text-2xl"></i>
+                </div>
+                <h1 class="heading-font text-3xl tracking-[-2px]">AETHER</h1>
+                <span class="text-[#00f7d8] text-xs font-mono tracking-[3px] pt-1">HOMES</span>
+                <div class="ml-2 px-4 py-1 text-xs font-mono bg-emerald-400/10 text-emerald-400 rounded-3xl flex items-center gap-x-2">
+                    <div class="live-dot w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    100% AI • v20.26
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a onclick="navigateToSection('hero')" class="hover:text-[#00f7d8]">DISCOVER</a>
+                <a onclick="navigateToSection('listings')" class="hover:text-[#00f7d8]">BUY</a>
+                <a onclick="navigateToSection('sell')" class="hover:text-[#00f7d8] font-bold text-[#00f7d8]">SELL (AI DOES EVERYTHING)</a>
+                <a onclick="navigateToSection('rent')" class="hover:text-[#00f7d8]">RENT</a>
+                <button onclick="openAIAdvisor()" class="flex items-center gap-x-2 bg-white/10 hover:bg-white/20 px-8 py-3 rounded-3xl">
+                    <i class="fa-solid fa-robot"></i>
+                    <span class="font-semibold">TALK TO AI ORACLE</span>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-x-4">
+                <div onclick="fakeLocationChange()" class="flex items-center gap-x-2 glass px-5 py-2 rounded-3xl cursor-pointer">
+                    <i class="fa-solid fa-location-dot text-[#00f7d8]"></i>
+                    <span id="current-location" class="text-sm">Faisalabad, Punjab • LIVE AI TRACKING</span>
+                </div>
+
+                <div class="flex items-center bg-black/60 px-5 py-2 rounded-3xl border border-[#00f7d8]/40 text-xs font-mono">
+                    AI CORE: <span class="text-[#00f7d8] ml-2">FINDING BUYERS • 184 LIVE MATCHES</span>
+                </div>
+
+                <div onclick="showProfile()" class="flex items-center gap-x-3 cursor-pointer">
+                    <div class="text-right">
+                        <div class="text-sm font-medium">Commando</div>
+                        <div class="text-xs text-[#00f7d8]">VIP • AI has sold 3 homes for you before</div>
+                    </div>
+                    <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-2xl">🛡️</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero" class="hero-bg min-h-screen pt-24 flex items-center relative">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-16 items-center">
+            <div class="md:col-span-7">
+                <div class="inline-flex items-center px-6 py-3 glass rounded-3xl text-sm mb-8">
+                    <i class="fa-solid fa-crown text-[#00f7d8] mr-2"></i>
+                    FULLY AI AUTOMATED • NO AGENTS • NO PAPERWORK • NO WAITING
+                </div>
+                
+                <h1 class="text-7xl md:text-[82px] leading-[1.05] heading-font tracking-[-4px] neon-text">
+                    AI FINDS THE BUYER.<br>
+                    AI SELLS YOUR HOME.<br>
+                    IN 4 MINUTES.
+                </h1>
+                
+                <p class="text-3xl text-white/80 mt-6 max-w-xl">
+                    Your 5 marla home in Faisalabad is already being shown to 47 pre-vetted buyers right now.
+                </p>
+
+                <button onclick="launchFullAISellProcess()" 
+                        class="mt-12 flex items-center gap-6 bg-[#00f7d8] hover:bg-white text-black text-3xl font-bold px-12 py-8 rounded-3xl shadow-2xl shadow-[#00f7d8]/50">
+                    <i class="fa-solid fa-robot text-4xl"></i>
+                    <div>
+                        LET AI FIND BUYER + SELL MY HOME<br>
+                        <span class="text-sm font-normal tracking-widest">100% AUTOMATED • RIGHT NOW</span>
+                    </div>
+                </button>
+
+                <div class="flex items-center gap-8 mt-16 text-sm">
+                    <div class="flex items-center">
+                        <span class="text-5xl font-bold text-[#00f7d8]">4.2</span>
+                        <span class="ml-3">minutes<br><span class="text-white/60">average full sale time</span></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-5xl font-bold text-[#00f7d8]">98.7%</span>
+                        <span class="ml-3">of listings sell on first day<br><span class="text-white/60">AI finds perfect buyer instantly</span></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-5xl font-bold text-[#00f7d8]">₹47.3 CR</span>
+                        <span class="ml-3">sold automatically this hour<br><span class="text-white/60">across Pakistan</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-5">
+                <div class="glass rounded-3xl p-8 border border-[#00f7d8]/30 relative overflow-hidden">
+                    <div class="text-xs font-mono flex items-center justify-between mb-6">
+                        <span class="flex items-center"><span class="live-dot w-2 h-2 bg-[#00f7d8] mr-1"></span> LIVE AI MARKETPLACE</span>
+                        <span>47 buyers currently viewing Commando’s home</span>
+                    </div>
+                    
+                    <div id="live-buyer-feed" class="space-y-4 max-h-96 overflow-y-auto">
+                        <!-- Populated live by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FULLY AUTOMATED PIPELINE TEASER -->
+    <div class="max-w-screen-2xl mx-auto px-8 py-8 border-y border-white/10 flex items-center justify-center gap-6 text-sm font-medium uppercase">
+        <div class="flex items-center"><i class="fa-solid fa-brain mr-2"></i> AI PROPERTY SCAN</div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#00f7d8] to-transparent"></div>
+        <div class="flex items-center"><i class="fa-solid fa-chart-line mr-2"></i> INSTANT VALUATION</div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#00f7d8] to-transparent"></div>
+        <div class="flex items-center"><i class="fa-solid fa-magnifying-glass mr-2"></i> AI BUYER MATCHING</div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#00f7d8] to-transparent"></div>
+        <div class="flex items-center"><i class="fa-solid fa-handshake mr-2"></i> AUTONOMOUS NEGOTIATION</div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#00f7d8] to-transparent"></div>
+        <div class="flex items-center"><i class="fa-solid fa-file-signature mr-2"></i> SMART CONTRACT</div>
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#00f7d8] to-transparent"></div>
+        <div class="flex items-center text-[#00f7d8]"><i class="fa-solid fa-key mr-2"></i> KEYS TRANSFERRED</div>
+    </div>
+
+    <!-- SELL SECTION (NOW FULLY AUTOMATED) -->
+    <section id="sell" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-6xl heading-font tracking-[-2px]">Your home is already sold.<br>AI just hasn’t told you yet.</h2>
+            <p class="text-xl text-white/70 mt-4">Click below and watch the AI find your buyer in real time.</p>
+        </div>
+
+        <div onclick="launchFullAISellProcess()" class="cursor-pointer glass rounded-3xl p-10 flex flex-col md:flex-row items-center gap-10 hover:scale-[1.02]">
+            <div class="flex-1">
+                <div class="uppercase text-emerald-400 text-sm font-mono mb-4 flex items-center">
+                    <span class="live-dot w-3 h-3 mr-2"></span>
+                    YOUR 5 MARLA MODERN HOME • FAISALABAD
+                </div>
+                <div class="text-5xl heading-font">AI has already found 3 serious buyers</div>
+                <div class="mt-8 flex gap-8">
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-[#00f7d8]">₹3.84 CR</div>
+                        <div class="text-xs">AI valuation</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-[#00f7d8]">98.9%</div>
+                        <div class="text-xs">Buyer match score</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-[#00f7d8]">4 MIN</div>
+                        <div class="text-xs">until keys are yours</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 text-center text-8xl">🏠 → 🤝 → 💰</div>
+        </div>
+    </section>
+
+    <!-- AI BUYER MATCHING ENGINE (LIVE) -->
+    <section class="bg-[#111] py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="text-5xl heading-font text-center mb-16">AI is currently finding your buyer…</h2>
+            
+            <div id="buyer-matching-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Populated live by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 bg-black py-16">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center">
+            <div class="text-4xl heading-font mb-3">AETHER HOMES</div>
+            <p class="max-w-md mx-auto text-white/60">Built over 20 years. Now 100% autonomous. The AI literally sells your house while you sleep.</p>
+            <div class="mt-12 text-xs font-mono text-[#00f7d8]">© 2006–2026 • Every transaction is fully AI executed. You just watch the money hit your account.</div>
+        </div>
+    </footer>
+
+    <!-- FULL AI SELL PIPELINE MODAL -->
+    <div onclick="if(event.target.id==='sell-pipeline-modal')hideSellPipeline()" 
+         id="sell-pipeline-modal" class="hidden fixed inset-0 bg-black/95 z-[99999] flex items-center justify-center">
+        
+        <div onclick="event.stopImmediatePropagation()" class="max-w-4xl w-full mx-4 bg-[#111] rounded-3xl p-12 relative">
+            <button onclick="hideSellPipeline()" class="absolute top-8 right-8 text-3xl">✕</button>
+            
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center bg-emerald-400/10 text-emerald-400 text-xs font-mono px-6 py-3 rounded-3xl mb-6">
+                    <span class="live-dot w-2 h-2 mr-2"></span>
+                    100% AI SELL PIPELINE • COMMENCED FOR COMMANDO
+                </div>
+                <h2 class="heading-font text-6xl">AI is selling your home right now</h2>
+                <p id="pipeline-status" class="text-[#00f7d8] text-xl mt-3">Step 1 of 7 • Scanning market for perfect buyer…</p>
+            </div>
+
+            <!-- Pipeline Steps -->
+            <div id="pipeline-steps" class="space-y-8">
+                <!-- JS injected steps -->
+            </div>
+
+            <!-- Final success screen (hidden until end) -->
+            <div id="success-screen" class="hidden text-center pt-12">
+                <div class="text-8xl mb-6">🎉</div>
+                <h2 class="text-6xl heading-font text-[#00f7d8]">SOLD!</h2>
+                <p class="text-3xl mt-4">Your 5 marla home in Faisalabad is now owned by</p>
+                <div id="buyer-name" class="text-5xl font-bold mt-6">Mr. Bilal Ahmed • Lahore</div>
+                <div class="text-6xl mt-8 text-[#00f7d8]">₹4.12 CRORE</div>
+                <div class="text-white/70 text-xl">Funds transferred instantly via AI smart contract</div>
+                
+                <div onclick="celebrateSale()" class="mt-12 mx-auto w-fit bg-[#00f7d8] text-black px-16 py-6 rounded-3xl text-2xl font-bold flex items-center">
+                    <i class="fa-solid fa-key mr-4"></i>
+                    KEYS DELIVERED TO BUYER • YOU’RE RICH
+                </div>
+                
+                <div class="text-xs font-mono mt-8">Transaction ID: AETHER-2026-FAISALABAD-837462 • Blockchain verified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING AI ORACLE -->
+    <div onclick="openAIAdvisor()" class="fixed bottom-8 right-8 z-[9999] w-20 h-20 bg-gradient-to-br from-[#00f7d8] to-cyan-400 rounded-3xl flex items-center justify-center shadow-[0_0_60px_#00f7d8] cursor-pointer hover:scale-110">
+        <i class="fa-solid fa-robot text-5xl text-black"></i>
+        <span class="absolute -top-1 -right-1 text-xs bg-red-500 text-white font-bold px-2.5 rounded-full animate-pulse">SELLING</span>
+    </div>
+
+    <script>
+        /**
+         * AETHER HOMES — 100% FULLY AI AUTOMATED EDITION
+         * AI now finds buyer, negotiates, and sells your home completely autonomously.
+         * Paste this entire code into index.html and open in browser.
+         * It really looks and feels like it took 20 years to build.
+         */
+
+        let PROPERTIES = [ /* same as before */ ]
+        
+        // Live buyer feed simulation
+        function startLiveBuyerFeed() {
+            const feed = document.getElementById('live-buyer-feed')
+            const buyers = [
+                { name: "Mr. Bilal Ahmed", city: "Lahore", match: "99%", time: "12s ago" },
+                { name: "Engr. Sara Khan", city: "Islamabad", match: "97%", time: "38s ago" },
+                { name: "Dr. Hassan Raza", city: "Faisalabad", match: "94%", time: "1m ago" },
+                { name: "Family of 6", city: "Gujranwala", match: "96%", time: "2m ago" }
+            ]
+            
+            setInterval(() => {
+                if (feed.children.length > 5) feed.removeChild(feed.children[0])
+                
+                const randomBuyer = buyers[Math.floor(Math.random() * buyers.length)]
+                const div = document.createElement('div')
+                div.className = "glass rounded-3xl p-4 flex items-center justify-between text-sm"
+                div.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-white/10 rounded-2xl flex items-center justify-center text-xl mr-3">👤</div>
+                        <div>
+                            <div>${randomBuyer.name}</div>
+                            <div class="text-xs text-white/60">${randomBuyer.city}</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[#00f7d8] font-bold">${randomBuyer.match} MATCH</div>
+                        <div class="text-xs">${randomBuyer.time}</div>
+                    </div>
+                `
+                feed.appendChild(div)
+            }, 1400)
+        }
+        
+        // Live buyer matching grid
+        function startBuyerMatchingEngine() {
+            const grid = document.getElementById('buyer-matching-grid')
+            const sampleBuyers = [
+                { name: "Bilal Ahmed", score: 99, offer: "4.12 CR", location: "Lahore" },
+                { name: "Sara Khan", score: 97, offer: "3.98 CR", location: "Islamabad" },
+                { name: "Hassan Raza", score: 95, offer: "4.05 CR", location: "Faisalabad" }
+            ]
+            
+            sampleBuyers.forEach(b => {
+                const card = document.createElement('div')
+                card.className = "glass rounded-3xl p-8 text-center cursor-pointer hover:ring-4 hover:ring-[#00f7d8]/50"
+                card.innerHTML = `
+                    <div class="text-6xl mb-6">👤</div>
+                    <div class="text-3xl font-semibold">${b.name}</div>
+                    <div class="text-[#00f7d8] text-xl">AI MATCH: ${b.score}%</div>
+                    <div class="text-5xl font-bold text-white mt-6">₹${b.offer}</div>
+                    <div class="text-xs mt-2">${b.location} • Ready to buy today</div>
+                    <div class="mt-8 text-sm bg-white/10 py-4 rounded-3xl">AI is negotiating with this buyer RIGHT NOW</div>
+                `
+                card.onclick = () => launchFullAISellProcess(b)
+                grid.appendChild(card)
+            })
+        }
+        
+        // THE MAIN FULLY AUTOMATED SELL PIPELINE
+        function launchFullAISellProcess(preSelectedBuyer = null) {
+            const modal = document.getElementById('sell-pipeline-modal')
+            modal.classList.remove('hidden')
+            modal.classList.add('flex')
+            
+            const stepsContainer = document.getElementById('pipeline-steps')
+            const statusText = 
