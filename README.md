@@ -16,3 +16,4 @@ SECRET_KEY=random_secret
 7. 
 Deploy frontend to Vercel, update API URL to backend.
 Access live frontend at your Vercel URL, backend at Railway/Render URL.
+03047288820
